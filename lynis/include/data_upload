@@ -1,0 +1,137 @@
+#!/bin/sh
+
+#################################################################################
+#
+#   Lynis
+# ------------------
+#
+# Copyright 2007-2015, Michael Boelen (michael.boelen@cisofy.com), CISOfy
+# Web site: https://cisofy.com
+#
+# Lynis comes with ABSOLUTELY NO WARRANTY. This is free software, and you are
+# welcome to redistribute it under the terms of the GNU General Public License.
+# See LICENSE file for usage of this software.
+#
+#################################################################################
+#
+# Data upload
+#
+#################################################################################
+#
+#    logtextbreak
+PROGRAM_VERSION="101"
+
+
+    # Data upload destination
+    if [ "${UPLOAD_SERVER}" = "" ]; then
+        UPLOAD_SERVER="cisofy.com"
+    fi
+    UPLOAD_URL="https://${UPLOAD_SERVER}/upload/"
+
+logtext "Upload server: ${UPLOAD_SERVER}"
+logtext "URL to upload to: ${UPLOAD_URL}"
+
+    # License server (set to upload server if not configured)
+    if [ "${LICENSE_SERVER}" = "" ]; then
+        LICENSE_SERVER="${UPLOAD_SERVER}"
+    fi
+    LICENSE_SERVER_URL="https://${LICENSE_SERVER}/license/"
+
+logtext "License server: ${LICENSE_SERVER}"
+
+
+# Additional options to curl
+if [ "${UPLOAD_OPTIONS}" = "" ]; then
+    CURL_OPTIONS=""
+  else
+    CURL_OPTIONS="${UPLOAD_OPTIONS}"
+fi
+SETTINGS_FILE="${PROFILE}"
+
+# Only output text to stdout if DEBUG mode is not used
+output()
+  {
+    if [ ${DEBUG} -eq 1 ]; then echo "$1"; fi
+  }
+
+#####################################################################################
+#
+# SYSTEM CHECKS
+#
+#####################################################################################
+
+output "Lynis Enterprise data uploader starting"
+output "Settings file: ${SETTINGS_FILE}"
+
+    # Check if we can find curl
+    # Suggestion: If you want to keep the system hardened, copying the binary from a trusted source is a good alternative.
+    #             Restrict access to this binary to the user who is running this script.
+    if [ "${CURLBINARY}" = "" ]; then
+        echo "Fatal: can't find curl binary. Please install the related package or put the binary in the PATH. Quitting.."
+        exit 1
+    fi
+
+    # Extra the license key from the settings file
+    if [ "${LICENSE_KEY}" = "" ]; then
+        echo "Fatal: no license key found. Quitting.."
+        ExitFatal
+      else
+        output "License key = ${LICENSE_KEY}"
+    fi
+
+
+#####################################################################################
+#
+# JOB CONTROL
+#
+#####################################################################################
+
+    # Check report file
+    if [ -f ${REPORTFILE} ]; then
+        output "${WHITE}Report file found.${NORMAL} Starting with connectivity check.."
+        # Quit if license is not valid, to reduce load on both client and server.
+        UPLOAD=`${CURLBINARY} ${CURL_OPTIONS} -s -S --data-urlencode "licensekey=${LICENSE_KEY}" --data-urlencode "collector_version=${PROGRAM_VERSION}" ${LICENSE_SERVER_URL}`
+        UPLOAD_CODE=`echo ${UPLOAD} | head -n 1 | awk '{ if ($1=="Response") { print $2 }}'`
+        if [ "${UPLOAD_CODE}" = "100" ]; then
+            output "${WHITE}License is valid${NORMAL}"
+            logtext "Result: License is valid"
+          else
+            echo "${RED}Fatal error: ${WHITE}This license key can not be checked, or has been expired. Please contact support@cisofy.com.${NORMAL}"
+            logtext "License check failed. This might have different causes:"
+            logtext "- Connection with license server could not be established"
+            logtext "- Collector version of Lynis version outdated"
+            logtext "- License expired"
+            logtext "- No credits left"
+            output "Debug information: ${UPLOAD}"
+            # Quit
+            ExitClean
+        fi
+        # Extract the hostid from the parse file
+        HOSTID=`cat ${REPORTFILE} | grep "^hostid=" | awk -F= '{ print $2 }'`
+        if [ ! "${HOSTID}" = "" ]; then
+            output "${WHITE}Found hostid: ${HOSTID}${NORMAL}"
+            # Try to connect
+            output "Uploading data.."
+            logtext "Command used: ${CURLBINARY} ${CURL_OPTIONS} -s -S --data-urlencode \"data@${REPORTFILE}\" --data-urlencode \"licensekey=${LICENSE_KEY}\" --data-urlencode \"hostid=${HOSTID}\" ${UPLOAD_URL}"
+            UPLOAD=`${CURLBINARY} ${CURL_OPTIONS} -s -S --data-urlencode "data@${REPORTFILE}" --data-urlencode "licensekey=${LICENSE_KEY}" --data-urlencode "hostid=${HOSTID}" ${UPLOAD_URL}`
+            if [ $? -gt 0 ]; then
+                #UPLOAD_CODE=`echo ${UPLOAD} | head -n 1 | awk '{ print $2 }'`
+                #output "Output code from upload: ${UPLOAD_CODE}"
+                output "${RED}Error occurred, please check documentation for code ${UPLOAD_CODE}.${NORMAL}"
+                output "Debug:"
+                output ${UPLOAD}
+                # Quit
+                ExitClean
+            fi
+          else
+            echo "${RED}Fatal error${NORMAL}: No hostid found in report file. Can not upload report file."
+            # Quit
+            ExitClean
+        fi
+      else
+         output "${YELLOW}No report file found to upload.${NORMAL}"
+    fi
+
+#
+#================================================================================
+# Lynis - Copyright 2007-2015, Michael Boelen, CISOfy - https://cisofy.com

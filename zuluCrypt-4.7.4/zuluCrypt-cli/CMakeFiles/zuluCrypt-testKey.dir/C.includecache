@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kod/soft/zuluCrypt-4.7.4/plugins/test/zuluCrypt-testKey.c
+../../zuluCrypt-cli/pluginManager/libzuluCryptPluginManager.h
+/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/pluginManager/libzuluCryptPluginManager.h
+string.h
+-
+
+/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/pluginManager/libzuluCryptPluginManager.h
+stddef.h
+-
+sys/types.h
+-
+

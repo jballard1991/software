@@ -1,0 +1,6 @@
+#  We want to use the phc-intel driver instead of the unmodified acpi-cpufreq driver
+install acpi-cpufreq /sbin/modprobe phc-intel || { /sbin/modprobe --ignore-install acpi-cpufreq; }
+
+#  The next two lines prevent the kernel from crashing:
+remove acpi-cpufreq /sbin/modprobe -r cpufreq_stats && { /sbin/modprobe --ignore-remove -r acpi-cpufreq ; }
+remove phc-intel /sbin/modprobe -r cpufreq_stats && { /sbin/modprobe --ignore-remove -r phc-intel ; }

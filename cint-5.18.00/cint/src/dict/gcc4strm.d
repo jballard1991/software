@@ -1,0 +1,1 @@
+  cint/src/dict/gcc4strm.o cint/src/dict/gcc4strm.d: $(wildcard cint/src/dict/gcc4strm.h cint/inc/G__ci.h cint/inc/G__ci_fproto.h cint/lib/gcc4strm/iostrm.h cint/lib/gcc4strm/fstrm.h cint/lib/gcc4strm/sstrm.h cint/lib/gcc4strm/linkdef.h)

@@ -1,0 +1,1136 @@
+# Tomb - The Crypto Undertaker.
+# Copyright (C) 2007-2013 Dyne.org Foundation
+# Denis Roio <jaromil@dyne.org>, 2013.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Tomb \n"
+"PO-Revision-Date: Wed Nov 26 17:50:10 CET 2014\n"
+"Last-Translator: Denis Roio <jaromil@dyne.org>\n"
+"Language: English\n"
+"Language-Team: Tomb developers <crypto@lists.dyne.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: failure
+msgid "Failing to identify the user who is calling us"
+msgstr ""
+
+#: failure
+msgid "Tomb won't work without a TOMBNAME."
+msgstr ""
+
+#: failure
+msgid "Fatal error creating the temporary directory: ::1 temp dir::"
+msgstr ""
+
+#: failure
+msgid "Fatal error setting the permission umask for temporary files"
+msgstr ""
+
+#: failure
+msgid "Someone is messing up with us trying to hijack temporary files."
+msgstr ""
+
+#: failure
+msgid "Fatal error creating a temporary file: ::1 temp file::"
+msgstr ""
+
+#: failure
+msgid "Fatal error setting ownership on temporary file: ::1 temp file::"
+msgstr ""
+
+#: success
+msgid "All your swaps are belong to crypt.  Good."
+msgstr ""
+
+#: warning
+msgid "You can deactivate all swap partitions using the command:"
+msgstr ""
+
+#: warning
+msgid " swapoff -a"
+msgstr ""
+
+#: warning
+msgid "But if you want to proceed like this, use the -f (force) flag."
+msgstr ""
+
+#: failure
+msgid "Operation aborted."
+msgstr ""
+
+#: failure
+msgid "Cannot find pinentry-curses and no DISPLAY detected."
+msgstr ""
+
+#: warning
+msgid "Detected DISPLAY, but only pinentry-curses is found."
+msgstr ""
+
+#: failure
+msgid "Cannot find any pinentry: impossible to ask for password."
+msgstr ""
+
+#: warning
+msgid "Pinentry error: ::1 error::"
+msgstr ""
+
+#: warning
+msgid "Empty password"
+msgstr ""
+
+#: failure
+msgid "Tomb file is missing from arguments."
+msgstr ""
+
+#: failure
+msgid "Tomb file not found: ::1 tomb file::"
+msgstr ""
+
+#: failure
+msgid "Tomb file is not a regular file: ::1 tomb file::"
+msgstr ""
+
+#: failure
+msgid "Tomb file is empty (zero length): ::1 tomb file::"
+msgstr ""
+
+#: failure
+msgid "Tomb file is not writable: ::1 tomb file::"
+msgstr ""
+
+#: warning
+msgid "File is not yet a tomb: ::1 tomb file::"
+msgstr ""
+
+#: failure
+msgid "Tomb is currently in use: ::1 tomb name::"
+msgstr ""
+
+#: message
+msgid "Valid tomb file found: ::1 tomb path::"
+msgstr ""
+
+#: warning
+msgid "Loop mount of volumes is not possible on this machine, this error"
+msgstr ""
+
+#: warning
+msgid "often occurs on VPS and kernels that don't provide the loop module."
+msgstr ""
+
+#: warning
+msgid "It is impossible to use Tomb on this machine at this conditions."
+msgstr ""
+
+#: print
+msgid "Syntax: tomb [options] command [arguments]"
+msgstr ""
+
+#: print
+msgid "Commands:"
+msgstr ""
+
+#: print
+msgid " // Creation:"
+msgstr ""
+
+#: print
+msgid " dig     create a new empty TOMB file of size -s in MB"
+msgstr ""
+
+#: print
+msgid " forge   create a new KEY file and set its password"
+msgstr ""
+
+#: print
+msgid " lock    installs a lock on a TOMB to use it with KEY"
+msgstr ""
+
+#: print
+msgid " // Operations on tombs:"
+msgstr ""
+
+#: print
+msgid " open    open an existing TOMB"
+msgstr ""
+
+#: print
+msgid " index   update the search indexes of tombs"
+msgstr ""
+
+#: print
+msgid " search  looks for filenames matching text patterns"
+msgstr ""
+
+#: print
+msgid " list    list of open TOMBs and information on them"
+msgstr ""
+
+#: print
+msgid " close   close a specific TOMB (or 'all')"
+msgstr ""
+
+#: print
+msgid " slam    slam a TOMB killing all programs using it"
+msgstr ""
+
+#: print
+msgid " resize  resize a TOMB to a new size -s (can only grow)"
+msgstr ""
+
+#: print
+msgid " // Operations on keys:"
+msgstr ""
+
+#: print
+msgid " passwd  change the password of a KEY (needs old pass)"
+msgstr ""
+
+#: print
+msgid " setkey  change the KEY locking a TOMB (needs old key and pass)"
+msgstr ""
+
+#: print
+msgid " // Backup on paper:"
+msgstr ""
+
+#: print
+msgid " engrave makes a QR code of a KEY to be saved on paper"
+msgstr ""
+
+#: print
+msgid " // Steganography:"
+msgstr ""
+
+#: print
+msgid " bury    hide a KEY inside a JPEG image (for use with -k)"
+msgstr ""
+
+#: print
+msgid " exhume  extract a KEY from a JPEG image (prints to stdout)"
+msgstr ""
+
+#: print
+msgid "Options:"
+msgstr ""
+
+#: print
+msgid " -s     size of the tomb file when creating/resizing one (in MB)"
+msgstr ""
+
+#: print
+msgid " -k     path to the key to be used ('-k -' to read from stdin)"
+msgstr ""
+
+#: print
+msgid " -n     don't process the hooks found in tomb"
+msgstr ""
+
+#: print
+msgid " -o     mount options used to open (default: rw,noatime,nodev)"
+msgstr ""
+
+#: print
+msgid " -f     force operation (i.e. even if swap is active)"
+msgstr ""
+
+#: print
+msgid " --kdf  generate passwords armored against dictionary attacks"
+msgstr ""
+
+#: print
+msgid " -h     print this help"
+msgstr ""
+
+#: print
+msgid " -v     print version, license and list of available ciphers"
+msgstr ""
+
+#: print
+msgid " -q     run quietly without printing informations"
+msgstr ""
+
+#: print
+msgid " -D     print debugging information at runtime"
+msgstr ""
+
+#: print
+msgid "For more informations on Tomb read the manual: man tomb"
+msgstr ""
+
+#: print
+msgid "Please report bugs on <http://github.com/dyne/tomb/issues>."
+msgstr ""
+
+#: failure
+msgid "Missing required dependency ::1 command::.  Please install it."
+msgstr ""
+
+#: warning
+msgid "cleartext key from stdin selected: this is unsafe."
+msgstr ""
+
+#: failure
+msgid "please use --unsafe if you really want to do this."
+msgstr ""
+
+#: warning
+msgid "received key in cleartext from stdin (unsafe mode)"
+msgstr ""
+
+#: warning
+msgid "is_valid_key() called without an argument."
+msgstr ""
+
+#: message
+msgid "Key is an image, it might be valid."
+msgstr ""
+
+#: message
+msgid "Key is valid."
+msgstr ""
+
+#: warning
+msgid "Attempting key recovery."
+msgstr ""
+
+#: failure
+msgid "This operation requires a key file to be specified using the -k option."
+msgstr ""
+
+#: message
+msgid "Waiting for the key to be piped from stdin... "
+msgstr ""
+
+#: failure
+msgid "Key not found, specify one using -k."
+msgstr ""
+
+#: warning
+msgid "The key seems invalid or its format is not known by this version of Tomb."
+msgstr ""
+
+#: failure
+msgid "No suitable program for KDF ::1 program::."
+msgstr ""
+
+#: failure
+msgid "Internal error: ask_key_password() called before _load_key()."
+msgstr ""
+
+#: message
+msgid "A password is required to use key ::1 key::"
+msgstr ""
+
+#: warning
+msgid "User aborted password dialog."
+msgstr ""
+
+#: message
+msgid "Password OK."
+msgstr ""
+
+#: message
+msgid "Commanded to change password for tomb key ::1 key::"
+msgstr ""
+
+#: failure
+msgid "No valid password supplied."
+msgstr ""
+
+#: success
+msgid "Changing password for ::1 key file::"
+msgstr ""
+
+#: failure
+msgid "Error: the newly generated keyfile does not seem valid."
+msgstr ""
+
+#: success
+msgid "Your passphrase was successfully updated."
+msgstr ""
+
+#: failure
+msgid "User aborted."
+msgstr ""
+
+#: failure
+msgid "You set empty password, which is not possible."
+msgstr ""
+
+#: failure
+msgid "Wrong argument for --kdf: must be an integer number (iteration seconds)."
+msgstr ""
+
+#: success
+msgid "Using KDF, iterations: ::1 microseconds::"
+msgstr ""
+
+#: message
+msgid "generating salt"
+msgstr ""
+
+#: message
+msgid "calculating iterations"
+msgstr ""
+
+#: message
+msgid "encoding the password"
+msgstr ""
+
+#: failure
+msgid "gpg (GnuPG) is not found, Tomb cannot function without it."
+msgstr ""
+
+#: warning
+msgid "Encode failed: ::1 image file:: is not a jpeg image."
+msgstr ""
+
+#: success
+msgid "Encoding key ::1 tomb key:: inside image ::2 image file::"
+msgstr ""
+
+#: message
+msgid "Please confirm the key password for the encoding"
+msgstr ""
+
+#: warning
+msgid "Wrong password supplied."
+msgstr ""
+
+#: failure
+msgid "You shall not bury a key whose password is unknown to you."
+msgstr ""
+
+#: warning
+msgid "Encoding error: steghide reports problems."
+msgstr ""
+
+#: success
+msgid "Tomb key encoded succesfully into image ::1 image file::"
+msgstr ""
+
+#: failure
+msgid "Exhume failed, no image specified"
+msgstr ""
+
+#: failure
+msgid "Exhume failed, image file not found: ::1 image file::"
+msgstr ""
+
+#: failure
+msgid "Exhume failed: ::1 image file:: is not a jpeg image."
+msgstr ""
+
+#: failure
+msgid "Wrong password or no steganographic key found"
+msgstr ""
+
+#: message
+msgid "printing exhumed key on stdout"
+msgstr ""
+
+#: warning
+msgid "File exists: ::1 tomb key::"
+msgstr ""
+
+#: warning
+msgid "Use of --force selected: overwriting."
+msgstr ""
+
+#: warning
+msgid "Make explicit use of --force to overwrite."
+msgstr ""
+
+#: failure
+msgid "Refusing to overwrite file. Operation aborted."
+msgstr ""
+
+#: message
+msgid "Trying to exhume a key out of image ::1 image file::"
+msgstr ""
+
+#: success
+msgid "Key succesfully exhumed to ::1 key::."
+msgstr ""
+
+#: warning
+msgid "Nothing found in ::1 image file::"
+msgstr ""
+
+#: success
+msgid "Rendering a printable QRCode for key: ::1 tomb key file::"
+msgstr ""
+
+#: failure
+msgid "QREncode reported an error."
+msgstr ""
+
+#: success
+msgid "Operation successful:"
+msgstr ""
+
+#: message
+msgid "Commanded to dig tomb ::1 tomb path::"
+msgstr ""
+
+#: failure
+msgid "Missing path to tomb"
+msgstr ""
+
+#: failure
+msgid "Size argument missing, use -s"
+msgstr ""
+
+#: failure
+msgid "Size must be an integer (megabytes)"
+msgstr ""
+
+#: failure
+msgid "Tombs can't be smaller than 10 megabytes"
+msgstr ""
+
+#: warning
+msgid "A tomb exists already. I'm not digging here:"
+msgstr ""
+
+#: success
+msgid "Creating a new tomb in ::1 tomb path::"
+msgstr ""
+
+#: message
+msgid "Generating ::1 tomb file:: of ::2 size::MiB"
+msgstr ""
+
+#: warning
+msgid "Error creating the tomb ::1 tomb path::"
+msgstr ""
+
+#: success
+msgid "Done digging ::1 tomb name::"
+msgstr ""
+
+#: message
+msgid "Your tomb is not yet ready, you need to forge a key and lock it:"
+msgstr ""
+
+#: message
+msgid "tomb forge ::1 tomb path::.key"
+msgstr ""
+
+#: message
+msgid "tomb lock ::1 tomb path:: -k ::1 tomb path::.key"
+msgstr ""
+
+#: failure
+msgid "A filename needs to be specified using -k to forge a new key."
+msgstr ""
+
+#: message
+msgid "Commanded to forge key ::1 key::"
+msgstr ""
+
+#: failure
+msgid "Forging this key would overwrite an existing file. Operation aborted."
+msgstr ""
+
+#: message
+msgid "Commanded to forge key ::1 key:: with cipher algorithm ::2 algorithm::"
+msgstr ""
+
+#: message
+msgid "This operation takes time, keep using this computer on other tasks,"
+msgstr ""
+
+#: message
+msgid "once done you will be asked to choose a password for your tomb."
+msgstr ""
+
+#: message
+msgid "To make it faster you can move the mouse around."
+msgstr ""
+
+#: message
+msgid "If you are on a server, you can use an Entropy Generation Daemon."
+msgstr ""
+
+#: warning
+msgid "Cannot generate encryption key."
+msgstr ""
+
+#: success
+msgid "Choose the  password of your key: ::1 tomb key::"
+msgstr ""
+
+#: message
+msgid "(You can also change it later using 'tomb passwd'.)"
+msgstr ""
+
+#: warning
+msgid "The key does not seem to be valid."
+msgstr ""
+
+#: warning
+msgid "Dumping contents to screen:"
+msgstr ""
+
+#: message
+msgid "Done forging ::1 key file::"
+msgstr ""
+
+#: success
+msgid "Your key is ready:"
+msgstr ""
+
+#: warning
+msgid "No tomb specified for locking."
+msgstr ""
+
+#: warning
+msgid "Usage: tomb lock file.tomb file.tomb.key"
+msgstr ""
+
+#: message
+msgid "Commanded to lock tomb ::1 tomb file::"
+msgstr ""
+
+#: failure
+msgid "There is no tomb here. You have to it dig first."
+msgstr ""
+
+#: message
+msgid "Checking if the tomb is empty (we never step on somebody else's bones)."
+msgstr ""
+
+#: warning
+msgid "The tomb was already locked with another key."
+msgstr ""
+
+#: failure
+msgid "Operation aborted. I cannot lock an already locked tomb. Go dig a new one."
+msgstr ""
+
+#: message
+msgid "Fine, this tomb seems empty."
+msgstr ""
+
+#: message
+msgid "Locking using cipher: ::1 cipher::"
+msgstr ""
+
+#: success
+msgid "Locking ::1 tomb file:: with ::2 tomb key file::"
+msgstr ""
+
+#: message
+msgid "Formatting Luks mapped device."
+msgstr ""
+
+#: warning
+msgid "cryptsetup luksFormat returned an error."
+msgstr ""
+
+#: warning
+msgid "cryptsetup luksOpen returned an error."
+msgstr ""
+
+#: message
+msgid "Formatting your Tomb with Ext3/Ext4 filesystem."
+msgstr ""
+
+#: warning
+msgid "Tomb format returned an error."
+msgstr ""
+
+#: warning
+msgid "Your tomb ::1 tomb file:: may be corrupted."
+msgstr ""
+
+#: message
+msgid "Done locking ::1 tomb name:: using Luks dm-crypt ::2 cipher::"
+msgstr ""
+
+#: success
+msgid "Your tomb is ready in ::1 tomb path:: and secured with key ::2 tomb key::"
+msgstr ""
+
+#: message
+msgid "Commanded to reset key for tomb ::1 tomb path::"
+msgstr ""
+
+#: warning
+msgid "Command 'setkey' needs two arguments: the old key file and the tomb."
+msgstr ""
+
+#: warning
+msgid "I.e:  tomb -k new.tomb.key old.tomb.key secret.tomb"
+msgstr ""
+
+#: failure
+msgid "Execution aborted."
+msgstr ""
+
+#: failure
+msgid "Not a valid LUKS encrypted volume: ::1 volume::"
+msgstr ""
+
+#: success
+msgid "Changing lock on tomb ::1 tomb name::"
+msgstr ""
+
+#: message
+msgid "Old key: ::1 old key::"
+msgstr ""
+
+#: failure
+msgid "No valid password supplied for the old key."
+msgstr ""
+
+#: failure
+msgid "Unexpected error in luksOpen."
+msgstr ""
+
+#: message
+msgid "New key: ::1 key file::"
+msgstr ""
+
+#: failure
+msgid "No valid password supplied for the new key."
+msgstr ""
+
+#: failure
+msgid "Unexpected error in luksChangeKey."
+msgstr ""
+
+#: failure
+msgid "Unexpected error in luksClose."
+msgstr ""
+
+#: success
+msgid "Succesfully changed key for tomb: ::1 tomb file::"
+msgstr ""
+
+#: message
+msgid "The new key is: ::1 new key::"
+msgstr ""
+
+#: failure
+msgid "No tomb name specified for opening."
+msgstr ""
+
+#: message
+msgid "Commanded to open tomb ::1 tomb name::"
+msgstr ""
+
+#: warning
+msgid "::1 tomb file:: is not a valid tomb file"
+msgstr ""
+
+#: message
+msgid "Mountpoint not specified, using default: ::1 mount point::"
+msgstr ""
+
+#: warning
+msgid "::1 tomb name:: is already open."
+msgstr ""
+
+#: message
+msgid "Here below its status is reported:"
+msgstr ""
+
+#: success
+msgid "Opening ::1 tomb file:: on ::2 mount point::"
+msgstr ""
+
+#: failure
+msgid "::1 tomb file:: is not a valid Luks encrypted storage file."
+msgstr ""
+
+#: message
+msgid "This tomb is a valid LUKS encrypted device."
+msgstr ""
+
+#: message
+msgid "Cipher is \"::1 cipher::\" mode \"::2 mode::\" hash \"::3 hash::\""
+msgstr ""
+
+#: warning
+msgid "Multiple key slots are enabled on this tomb. Beware: there can be a backdoor."
+msgstr ""
+
+#: failure
+msgid "Failure mounting the encrypted file."
+msgstr ""
+
+#: success
+msgid "Success unlocking tomb ::1 tomb name::"
+msgstr ""
+
+#: message
+msgid "Checking filesystem via ::1::"
+msgstr ""
+
+#: success
+msgid "Success opening ::1 tomb file:: on ::2 mount point::"
+msgstr ""
+
+#: message
+msgid "Last visit by ::1 user::(::2 tomb build::) from ::3 tty:: on ::4 host::"
+msgstr ""
+
+#: message
+msgid "on date ::1 date::"
+msgstr ""
+
+#: warning
+msgid "How pitiful!  A tomb, and no HOME."
+msgstr ""
+
+#: warning
+msgid "Cannot exec bind hooks without a mounted tomb."
+msgstr ""
+
+#: warning
+msgid "bind-hooks file is broken"
+msgstr ""
+
+#: warning
+msgid "bind-hooks map format: local/to/tomb local/to/$HOME"
+msgstr ""
+
+#: warning
+msgid "bind-hooks map format: local/to/tomb local/to/$HOME.  Rolling back"
+msgstr ""
+
+#: warning
+msgid "bind-hook target not existent, skipping ::1 home::/::2 subdir::"
+msgstr ""
+
+#: warning
+msgid "bind-hook source not found in tomb, skipping ::1 mount point::/::2 subdir::"
+msgstr ""
+
+#: success
+msgid "Post hooks found, executing as user ::1 user name::."
+msgstr ""
+
+#: failure
+msgid "I can't see any ::1 status:: tomb, may they all rest in peace."
+msgstr ""
+
+#: message
+msgid "::1 tombname:: open on ::2 tombmount:: using ::3 tombfsopts::"
+msgstr ""
+
+#: message
+msgid "::1 tombname:: open since ::2 tombsince::"
+msgstr ""
+
+#: message
+msgid "::1 tombname:: open by ::2 tombuser:: from ::3 tombtty:: on ::4 tombhost::"
+msgstr ""
+
+#: message
+msgid "::1 tombname:: size ::2 tombtot:: of which ::3 tombused:: (::5 tombpercent::%) is used: ::4 tombavail:: free "
+msgstr ""
+
+#: warning
+msgid "::1 tombname:: warning: your tomb is almost full!"
+msgstr ""
+
+#: message
+msgid "::1 tombname:: hooks ::2 hookname:: on ::3 hookdest::"
+msgstr ""
+
+#: failure
+msgid "Internal error: list_tomb_binds called without argument."
+msgstr ""
+
+#: failure
+msgid "Cannot index tombs on this system: updatedb (mlocate) not installed."
+msgstr ""
+
+#: warning
+msgid "Cannot use GNU findutils for index/search commands."
+msgstr ""
+
+#: failure
+msgid "Index command needs 'mlocate' to be installed."
+msgstr ""
+
+#: failure
+msgid "There seems to be no open tomb engraved as [::1::]"
+msgstr ""
+
+#: failure
+msgid "I can't see any open tomb, may they all rest in peace."
+msgstr ""
+
+#: success
+msgid "Creating and updating search indexes."
+msgstr ""
+
+#: message
+msgid "Skipping ::1 tomb name:: (.noindex found)."
+msgstr ""
+
+#: message
+msgid "Indexing ::1 tomb name:: filenames..."
+msgstr ""
+
+#: message
+msgid "Indexing ::1 tomb name:: contents..."
+msgstr ""
+
+#: message
+msgid "Generating a new swish-e configuration file: ::1 swish conf::"
+msgstr ""
+
+#: message
+msgid "Search index updated."
+msgstr ""
+
+#: success
+msgid "Searching for: ::1::"
+msgstr ""
+
+#: message
+msgid "Searching filenames in tomb ::1 tomb name::"
+msgstr ""
+
+#: message
+msgid "Matches found: ::1 matches::"
+msgstr ""
+
+#: message
+msgid "Searching contents in tomb ::1 tomb name::"
+msgstr ""
+
+#: warning
+msgid "Skipping tomb ::1 tomb name::: not indexed."
+msgstr ""
+
+#: warning
+msgid "Run 'tomb index' to create indexes."
+msgstr ""
+
+#: message
+msgid "Search completed."
+msgstr ""
+
+#: message
+msgid "Commanded to resize tomb ::1 tomb name:: to ::2 size:: megabytes."
+msgstr ""
+
+#: failure
+msgid "No tomb name specified for resizing."
+msgstr ""
+
+#: failure
+msgid "Cannot find ::1::"
+msgstr ""
+
+#: failure
+msgid "Aborting operations: new size was not specified, use -s"
+msgstr ""
+
+#: failure
+msgid "Please close the tomb ::1 tomb name:: before trying to resize it."
+msgstr ""
+
+#: failure
+msgid "You must specify the new size of ::1 tomb name::"
+msgstr ""
+
+#: failure
+msgid "Size is not an integer."
+msgstr ""
+
+#: failure
+msgid "The new size must be greater then old tomb size."
+msgstr ""
+
+#: failure
+msgid "Error creating the extra resize ::1 size::, operation aborted."
+msgstr ""
+
+#: failure
+msgid "cryptsetup failed to resize ::1 mapper::"
+msgstr ""
+
+#: failure
+msgid "e2fsck failed to check ::1 mapper::"
+msgstr ""
+
+#: failure
+msgid "resize2fs failed to resize ::1 mapper::"
+msgstr ""
+
+#: failure
+msgid "There is no open tomb to be closed."
+msgstr ""
+
+#: warning
+msgid "Too many tombs mounted, please specify one (see tomb list)"
+msgstr ""
+
+#: warning
+msgid "or issue the command 'tomb close all' to close them all."
+msgstr ""
+
+#: warning
+msgid "Tomb not found: ::1 tomb file::"
+msgstr ""
+
+#: warning
+msgid "Please specify an existing tomb."
+msgstr ""
+
+#: success
+msgid "Slamming tomb ::1 tomb name:: mounted on ::2 mount point::"
+msgstr ""
+
+#: message
+msgid "Kill all processes busy inside the tomb."
+msgstr ""
+
+#: failure
+msgid "Cannot slam the tomb ::1 tomb name::"
+msgstr ""
+
+#: message
+msgid "Closing tomb ::1 tomb name:: mounted on ::2 mount point::"
+msgstr ""
+
+#: message
+msgid "Closing tomb bind hook: ::1 hook::"
+msgstr ""
+
+#: success
+msgid "Slamming tomb: killing all processes using this hook."
+msgstr ""
+
+#: failure
+msgid "Cannot slam the bind hook ::1 hook::"
+msgstr ""
+
+#: warning
+msgid "Tomb bind hook ::1 hook:: is busy, cannot close tomb."
+msgstr ""
+
+#: warning
+msgid "Tomb is busy, cannot umount!"
+msgstr ""
+
+#: failure
+msgid "Error occurred in cryptsetup luksClose ::1 mapper::"
+msgstr ""
+
+#: success
+msgid "Tomb ::1 tomb name:: closed: your bones will rest in peace."
+msgstr ""
+
+#: failure
+msgid "Error parsing."
+msgstr ""
+
+#: warning
+msgid "There's no such command \"::1 subcommand::\"."
+msgstr ""
+
+#: failure
+msgid "Please try -h for help."
+msgstr ""
+
+#: warning
+msgid "Some error occurred during option processing."
+msgstr ""
+
+#: failure
+msgid "See \"tomb help\" for more info."
+msgstr ""
+
+#: failure
+msgid "Unrecognized option ::1 arg:: for subcommand ::2 subcommand::"
+msgstr ""
+
+#: failure
+msgid "You specified option ::1 option::, which is DANGEROUS and should only be used for testing\nIf you really want so, add --unsafe"
+msgstr ""
+
+#: warning
+msgid "The create command is deprecated, please use dig, forge and lock instead."
+msgstr ""
+
+#: warning
+msgid "For more informations see Tomb's manual page (man tomb)."
+msgstr ""
+
+#: failure
+msgid "Resize2fs not installed: cannot resize tombs."
+msgstr ""
+
+#: failure
+msgid "QREncode not installed: cannot engrave keys on paper."
+msgstr ""
+
+#: failure
+msgid "Steghide not installed: cannot bury keys into images."
+msgstr ""
+
+#: failure
+msgid "Steghide not installed: cannot exhume keys from images."
+msgstr ""
+
+#: print
+msgid "Tomb ::1 version:: - a strong and gentle undertaker for your secrets"
+msgstr ""
+
+#: print
+msgid " Copyright (C) 2007-2014 Dyne.org Foundation, License GNU GPL v3+"
+msgstr ""
+
+#: print
+msgid " This is free software: you are free to change and redistribute it"
+msgstr ""
+
+#: print
+msgid " For the latest sourcecode go to <http://dyne.org/software/tomb>"
+msgstr ""
+
+#: print
+msgid " This source code is distributed in the hope that it will be useful,"
+msgstr ""
+
+#: print
+msgid " but WITHOUT ANY WARRANTY; without even the implied warranty of"
+msgstr ""
+
+#: print
+msgid " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+msgstr ""
+
+#: print
+msgid " When in need please refer to <http://dyne.org/support>."
+msgstr ""
+
+#: print
+msgid "System utils:"
+msgstr ""
+
+#: print
+msgid "Optional utils:"
+msgstr ""
+
+#: warning
+msgid "Command \"::1 subcommand::\" not recognized."
+msgstr ""
+
+#: message
+msgid "Try -h for help."
+msgstr ""
+

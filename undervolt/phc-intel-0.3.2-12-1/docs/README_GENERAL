@@ -1,0 +1,60 @@
+Doc-Version: 1
+
+
+General Information about how to use this package.
+
+Released under GPL
+
+
+1  - Description
+2  - Preconditions
+3  - Build your Module
+4  - Information
+
+
+
+
+1 - Description
+    This is the phc offtree package for Intel CPUs.
+    It is based on the default linux-phc patches and the stock acpi-cpufreq module taken from a vanilla kernel.
+    The new module will be named "phc-intel.ko" instead of "acpi-cpufreq.ko" but it is the same, just patched with PHC.
+      
+    We made this package so you can compile the PHC module outside the kernel tree (to make it easier to you).
+
+
+2 - Preconditions
+    You need to have at least your kernel-headers installed.
+    You need a Kernel where acpi-cpufreq is compiled as module (or is not compiled at all).
+    You also need the build essentials (gcc, libc, make, etc).
+
+
+
+3 - Build your Module
+    Open a console and change the directory to where you extracted the offtree-package.
+  
+    To build your module, type	
+        make
+    This will prepare and compile the module.
+ 
+    Then, type	
+        sudo make install
+    This will copy the new module (phc-intel.ko) to the kernel directory and run depmod.
+    If you want to test this module before installing it, just unload your original module
+    using "rmmod" or "modprobe -r" and load your new one using "insmod".
+    Remember, the new module is named "phc-intel.ko".
+
+    Run some test with it or what ever you like to.
+
+    If you install it without testing, then unload the old (stock) module and
+    load your new one the same way like mentioned above.
+
+
+4 - Information
+
+       For more Information and to get help visit 
+
+              http://www.linux.phc.org
+                          or 
+join the chat at irc.freenode.net - channel  #phc-intel
+
+

@@ -1,0 +1,6 @@
+#!/bin/sh
+echo Uninstalling...
+rm -r /usr/bin/ucontrol
+rm -r /usr/lib/ucontrol
+echo OK
+

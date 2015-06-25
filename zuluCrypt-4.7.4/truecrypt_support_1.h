@@ -1,0 +1,2 @@
+
+#define TRUECRYPT_CREATE 0

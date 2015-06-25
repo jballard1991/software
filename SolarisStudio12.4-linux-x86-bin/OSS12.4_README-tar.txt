@@ -1,0 +1,97 @@
+======================================
+Overview
+======================================
+Oracle Solaris Studio 12.4 is a suite of compilers and tools that
+enable developers to create highly optimized and secure applications
+for the Oracle Solaris and Linux Operating Systems. These tools help
+application developers achieve the best performance on Oracle's newest
+T-series and M-series SPARC servers, Fujitsu's M10 servers, and
+Intel-based servers.
+
+For complete information about the Oracle Solaris Studio 12.4
+release, visit the :
+
+Oracle Solaris Studio 12.4 Documentation library
+http://docs.oracle.com/cd/E37069_01/
+
+To get a high-level overview of each of components of the
+Oracle Solaris Studio 12.4 product, review the following
+manual located in the Documentation Library.
+
+Oracle Solaris Studio 12.4: Overview
+http://docs.oracle.com/cd/E37069_01/html/E37073/index.html
+
+This document provides a brief description of the compilers and
+tools in the Oracle Solaris Studio 12.4 product and how to get
+started with each.
+
+What's New in Oracle Solaris Studio 12.4
+http://docs.oracle.com/cd/E37069_01/html/E37071/index.html
+
+describes the new features in this release.
+
+======================================
+Installation Instructions
+======================================
+
+Prior to installation, we recommend you read the
+Oracle Solaris Studio 12.4 Installation Guide
+which contains complete installation information for
+installing on Oracle Solaris 10, Oracle Solaris 11,
+Oracle Linux systems, and Red Hat Linux systems.
+
+http://docs.oracle.com/cd/E37069_01/html/E37072/index.html
+
+======================================
+System Packages and Patches for Solaris 10
+======================================
+The Systems Requirements in the Oracle Solaris Studio 12.4
+Release Notes state the versions of the operating systems that are
+supported.
+
+For a complete list of Oracle Solaris system packages required to
+run Oracle Solaris Studio 12.4, review the
+
+Required System Software Packages in  the
+Oracle Solaris Studio 12.4 Release Notes
+http://docs.oracle.com/cd/E37069_01/html/E37070/index.html
+
+Required patches are included with the Oracle Solaris Studio 12.4
+product distribution.
+
+If you did not already install the included Oracle Solaris 10 patches
+while running the GUI installer, install them as root:
+
+   # ./install_patches.sh
+
+======================================
+Post Installation - PATH/MANPATH setup
+======================================
+Because the Oracle Solaris Studio 12.4 software product components
+and man pages are not installed into the system directories /usr/bin/
+and /usr/share/man, you may need to change your PATH and MANPATH
+environment variables to use the Oracle Solaris Studio 12.4
+software.
+
+See the section :
+
+Setting Up Access to the Developer Tools and Man Pages
+in the Oracle Solaris Studio 12.4 Installation Guide:
+
+http://docs.oracle.com/cd/E37069_01/html/E37072/index.html
+
+======================================
+Additional Information
+======================================
+Join and interact with the  Oracle Solaris Studio community
+at the Oracle Technical Network (OTN) site:
+
+www.oracle.com/technetwork/server-storage/solarisstudio
+
+You will find forums, documentation, technical articles,
+tutorials, social networking options, and more.
+
+To learn more about Oracle Development Tools Support Offerings,
+please visit:
+
+www.oracle.com/us/support/development-tools-080025.html

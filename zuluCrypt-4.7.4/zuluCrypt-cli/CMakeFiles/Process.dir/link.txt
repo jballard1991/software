@@ -1,0 +1,2 @@
+/usr/bin/ar cr libProcess.a  CMakeFiles/Process.dir/utility/process/process.c.o
+/usr/bin/ranlib libProcess.a

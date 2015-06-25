@@ -1,0 +1,341 @@
+#!/usr/bin/zsh
+#
+# Iterates through various tests on the tomb script
+
+T="../../tomb"
+source ${T} source
+dummypass=test
+dummypassnew=changetest
+
+GLOBAL_RESULT=0
+
+notice() { print; yes "${@}"; print; }
+error() { _warning "     ${@}"; }
+tt() {
+	start_loops=(`sudo losetup -a |cut -d: -f1`)
+	start_temps=(`find /dev/shm -name 'tomb*'`)
+	${T} -D ${=@}
+	res=$?
+	loops=(`sudo losetup -a |cut -d: -f1`)
+	temps=(`find /dev/shm -name 'tomb*'`)
+
+	{ test "${#start_loops}" = "${#loops}" } || {
+	    error "loop device usage change to ${#loops}" }
+	{ test "${#start_temps}" = "${#temps}" } || {
+	    error "temp files usage change to ${#temps}" }
+	print "     Tomb command returns $res"
+	return $res
+}
+
+# check for auxiliary programs
+KDF=1
+STEGHIDE=1
+RESIZER=1
+command -v steghide > /dev/null || STEGHIDE=0
+command -v e2fsck resize2fs > /dev/null || RESIZER=0
+command -v tomb-kdb-pbkdf2 > /dev/null || KDF=0
+command -v qrencode > /dev/null || QRENCODE=0
+
+
+typeset -A results
+tests=(dig forge lock badpass open close passwd chksum bind setkey)
+{ test $RESIZER = 1 } && { tests+=(resize) }
+{ test $KDF = 1 } && { tests+=(kdforge kdfpass kdflock kdfopen) }
+{ test $STEGHIDE = 1 } && { tests+=(stgin stgout stgopen stgpipe stgimpl) }
+{ test $QRENCODE = 1 } && { tests+=(qrenc) }
+
+notice "Loading test suite"
+
+# functions that can be called singularly
+
+test-tomb-create() {
+
+    notice "wiping all test.tomb* in /tmp"
+    sudo rm -f /tmp/test.tomb{,.key,.new.key}
+
+    notice "Testing creation: dig"
+
+    tt dig -s 20 /tmp/test.tomb
+
+    { test $? = 0 } && { results+=(dig SUCCESS) }
+
+    notice "Testing creation: forge"
+
+    tt forge /tmp/test.tomb.key \
+        --ignore-swap --unsafe --tomb-pwd ${dummypass} --use-urandom 
+
+    { test $? = 0 } && { 
+        results+=(forge SUCCESS)
+        # 
+        say "Dump of clear key contents to examine them:"
+        print ${dummypass} \
+	        | gpg --batch --passphrase-fd 0 --no-tty --no-options -d /tmp/test.tomb.key \
+	        | hexdump -C
+        echo --
+    }
+
+    notice "Testing creation: lock"
+
+    tt lock /tmp/test.tomb -k /tmp/test.tomb.key \
+        --ignore-swap --unsafe --tomb-pwd ${dummypass} 
+
+    { test $? = 0 } && { results+=(lock SUCCESS) }
+}
+
+test-bind-hooks() {
+    notice "Testing bind hooks"
+    tt list test
+    [[ $? = 0 ]] || {
+        tt --ignore-swap --unsafe --tomb-pwd ${dummypass} \
+            open /tmp/test.tomb -k /tmp/test.tomb.key }
+    rnd=$RANDOM
+    bindtest="dyne-tomb-bind-test-$rnd"
+    echo $rnd > /media/test.tomb/$bindtest
+    rm -f /media/test.tomb/bind-hooks
+    echo "$bindtest $bindtest" > /media/test.tomb/bind-hooks
+    touch $HOME/$bindtest
+    tt close test
+    tt -k /tmp/test.tomb.key --unsafe --tomb-pwd ${dummypass} open /tmp/test.tomb
+    rnd2=`cat $HOME/$bindtest`
+    if [ "$rnd" = "$rnd2" ]; then
+	    notice "Bind hook on file matches"
+	    results+=(bind SUCCESS)
+	    tt list test
+    else
+	    error "Bind hook on file reports incongruence"
+    fi
+    rm -f "/media/test.tomb/$bindtest"
+    tt close test
+    # Remove test file in HOME
+    rm -f "$HOME/$bindtest"
+}
+
+test-set-key() {
+
+    notice "Testing set key"
+
+    sudo rm -f /tmp/test.tomb.new.key
+
+    tt forge -k /tmp/test.tomb.new.key --force --unsafe --tomb-pwd ${dummypass} --use-urandom
+
+    tt setkey -k /tmp/test.tomb.new.key --unsafe --tomb-pwd ${dummypass} --tomb-old-pwd ${dummypass} /tmp/test.tomb.key /tmp/test.tomb
+
+    tt open -k /tmp/test.tomb.new.key --unsafe --tomb-pwd ${dummypass} /tmp/test.tomb
+
+    [[ $? = 0 ]] && {
+        notice "Setkey succesfully swapped tomb key"
+        results+=(setkey SUCCESS)
+        say "Dump of clear key contents to examine them:"
+        print ${dummypass} \
+	        | gpg --batch --passphrase-fd 0 --no-tty --no-options -d /tmp/test.tomb.new.key \
+	        | hexdump -C
+        echo --
+        mv /tmp/test.tomb.new.key /tmp/test.tomb.key
+        tt close test
+    }
+}
+
+
+startloops=(`sudo losetup -a |cut -d: -f1`)
+
+[[ $1 = "source" ]] && { return 0 }
+
+[[ $1 = "" ]] || {
+    tt ${=@}
+    return $?
+}
+
+# isolated function (also called with source)
+test-tomb-create
+
+notice "Testing open with wrong password"
+
+tt -k /tmp/test.tomb.key --unsafe --tomb-pwd wrongpassword open /tmp/test.tomb
+
+{ test $? = 0 } || { results+=(badpass SUCCESS) }
+
+
+
+notice "Testing open with good password"
+
+tt -k /tmp/test.tomb.key --unsafe --tomb-pwd ${dummypass} open /tmp/test.tomb
+
+{ test $? = 0 } && { results+=(open SUCCESS) }
+
+tt close test
+
+{ test $? = 0 } && { results+=(close SUCCESS) }
+
+
+
+notice "Testing changing tomb password"
+
+tt passwd /tmp/test.tomb \
+    -k /tmp/test.tomb.key --unsafe --tomb-old-pwd ${dummypass} --tomb-pwd ${dummypassnew}
+
+tt passwd /tmp/test.tomb \
+    -k /tmp/test.tomb.key --unsafe --tomb-old-pwd ${dummypassnew} --tomb-pwd ${dummypass}
+
+{ test $? = 0 } && { results+=(passwd SUCCESS) }
+
+
+
+
+
+notice "Generating content for file integrity test"
+
+tt -k /tmp/test.tomb.key --unsafe --tomb-pwd ${dummypass} open /tmp/test.tomb
+
+tt dig -s 10 /media/test.tomb/datacheck.raw
+
+crc="sha256 /media/test.tomb/datacheck.raw"
+echo "$crc" > /media/test.tomb/datacheck.sha
+
+tt --unsafe close test
+
+{ test $RESIZER = 1 } && {
+    notice "Testing resize to 30 MiB"
+    
+    tt --unsafe --tomb-pwd ${dummypass} -k /tmp/test.tomb.key resize /tmp/test.tomb -s 30
+    
+    { test $? = 0 } && { results+=(resize SUCCESS) }
+
+}
+
+notice "Testing contents integrity"
+
+tt -k /tmp/test.tomb.key --unsafe --tomb-pwd ${dummypass} open /tmp/test.tomb
+
+{ test $? = 0 } && {
+    
+    crc2="sha256 /media/test.tomb/datacheck.raw"
+    
+    { test "$crc" = "$crc2" } && { results+=(chksum SUCCESS) }
+
+    tt close test
+}
+
+
+
+
+
+
+# isolated function
+test-bind-hooks
+
+
+
+
+
+
+
+
+
+# iso func
+test-set-key
+
+
+
+
+
+
+
+
+{ test $KDF = 1 } && { 
+    
+    notice "Testing KDF key"
+    sudo rm -f /tmp/test.tomb.kdf /tmp/kdf.tomb
+    
+    tt --unsafe --tomb-pwd ${dummypass} --use-urandom --kdf 1 forge -k /tmp/test.tomb.kdf
+    
+    { test $? = 0 } && { results+=(kdforge SUCCESS) }
+    
+    tt passwd --unsafe --tomb-old-pwd ${dummypass} --tomb-pwd ${dummypassnew} --kdf 1 -k /tmp/test.tomb.kdf
+    
+    { test $? = 0 } && { results+=(kdfpass SUCCESS) }
+    
+    tt dig -s 10 /tmp/kdf.tomb
+    
+    tt lock /tmp/kdf.tomb -k /tmp/test.tomb.kdf \
+        --ignore-swap --unsafe --tomb-pwd ${dummypassnew} --kdf 1
+    
+    { test $? = 0 } && { results+=(kdflock SUCCESS) }
+    
+    tt open /tmp/kdf.tomb -k /tmp/test.tomb.kdf \
+        --ignore-swap --unsafe --tomb-pwd ${dummypassnew} --kdf 1
+    
+    { test $? = 0 } && { results+=(kdfopen SUCCESS) }
+    
+    ${T} close kdf
+    
+}
+
+{ test $STEGHIDE = 1 } && {
+
+    notice "Testing steganographic hiding of keys"
+
+    cp -f arditi.jpg /tmp/tomb.jpg
+    sudo rm -f /tmp/test.steg.key
+    
+    tt --unsafe --tomb-pwd ${dummypass} bury -k /tmp/test.tomb.key /tmp/tomb.jpg
+
+    { test $? = 0 } && { results+=(stgin SUCCESS) }
+
+    rm -f /tmp/test.steg.key
+
+    tt --unsafe --tomb-pwd ${dummypass} exhume -k /tmp/test.steg.key /tmp/tomb.jpg
+
+    { test $? = 0 } && { results+=(stgout SUCCESS) }
+
+    tt --unsafe --tomb-pwd ${dummypass} open -k /tmp/test.steg.key /tmp/test.tomb
+
+    { test $? = 0 } && { results+=(stgopen SUCCESS) }
+
+    ${T} close test
+
+    # test piping keys using -k -
+    tkey=`tt --unsafe --tomb-pwd ${dummypass} exhume /tmp/tomb.jpg`
+    print "$tkey" | tt --unsafe --tomb-pwd ${dummypass} open -k - /tmp/test.tomb
+    { test $? = 0 } && { results+=(stgpipe SUCCESS) }
+
+    ${T} close test
+
+
+    notice "test using open -k image.jpeg"
+
+    tt --unsafe --tomb-pwd ${dummypass} open -k /tmp/tomb.jpg /tmp/test.tomb 
+    { test $? = 0 } && { results+=(stgimpl SUCCESS) }
+
+    tt close test
+}
+
+{ test $QRENCODE = 1 } && {
+
+    notice "test rendering a QR printable key backup"
+
+    tt engrave -k /tmp/test.tomb.key
+
+    { test $? = 0 } && { results+=(qrenc SUCCESS) }
+
+}
+
+# rm /tmp/test.tomb{,.key} -f || exit 1
+    
+endloops=(`sudo losetup -a |cut -d: -f1`)
+
+notice "Test results summary"
+
+print "${#startloops} loop devices busy at start"
+
+for t in $tests; do
+    echo "$t\t${results[$t]:-FAIL}"
+done
+
+for r in ${(v)results}; do
+    [[ "$r" == "SUCCESS" ]] || GLOBAL_RESULT=1
+done
+
+print "${#endloops} loop devices busy at end"
+print "Done. You can remove temporary leftovers from /tmp :"
+for i in `find /tmp -name '*tomb*' 2>/dev/null`; do ls -lh $i; done
+return $GLOBAL_RESULT

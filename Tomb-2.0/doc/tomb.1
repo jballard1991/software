@@ -1,0 +1,456 @@
+.TH tomb 1 "November 26, 2014" "tomb"
+
+.SH NAME
+Tomb \- the Crypto Undertaker
+
+.SH SYNOPSIS
+.B
+.IP "tomb [options] command [arguments]"
+
+.SH DESCRIPTION
+
+Tomb is an application to manage the creation and access of encrypted
+storage files: it can be operated from commandline and it can
+integrate with a user's graphical desktop.
+
+Tomb generates encrypted storage files to be opened and closed using
+their associated keys, which are also protected with a password chosen
+by the user. To create, open and close tombs a user will need super
+user rights to execute the tomb commandline utility.
+
+A tomb is like a locked folder that can be safely transported and
+hidden in a filesystem; it encourages users to keep their keys
+separate from tombs, for instance keeping a tomb file on your computer
+harddisk and its key file on a USB stick.
+
+
+.SH COMMANDS
+
+.B
+.IP "dig"
+Generates a file that can be used as a tomb and will occupy as much
+space as its desired initial size, the unlocked \fI.tomb\fR file can
+then be locked using a \fIkey\fR. It takes a mandatory \fI-s\fR option which is
+the size in megabytes (MiB). Tombs are digged using
+low-quality random data (/dev/urandom).
+
+.B
+.IP "forge"
+Creates a new \fIkey\fR and prompts the user for a \fIpassword\fR to
+protect its usage. This operation requires high quality random data
+(/dev/random) which can take quite some time to be gathered on a
+server: it works better on a desktop where the mouse can be moved
+around for entropy. The default cipher to protect the key is AES256, a
+custom one can be specified using the \fI-o\fR option, for a list of
+supported ciphers use \fI-v\fR. For additional protection against
+dictionary attacks on keys, the (experimental) \fI--kdf\fR option can
+be used when forging a key, making sure that the \fItomb-kdb-pbkdf2\fR
+binaries in \fIextras/kdf\fR were compiled and installed on the
+system.
+
+.B
+.IP "lock"
+Initializes and locks an empty tomb (made with \fIdig\fR) using a key
+(made with \fIforge\fR), making it ready for usage. After this
+operation, the tomb can only be open in possession of the key and
+knowing its password. As in any other command requiring a key, the
+option \fI-k\fR should be used to specify a key file. The \fI-o\fR
+option can be used to specify the cipher specification: default is
+"aes-xts-plain64:sha256", old versions of Tomb used "aes-cbc-essiv:sha256".
+This operation requires root privileges to loopback mount, format the tomb (using
+LUKS and Ext4), then set the key in its first LUKS slot.
+
+.B
+.IP "open"
+Opens an existing \fI.tomb\fR (first argument) using a key (\fI-k\fR),
+if a second argument is given it will indicate the \fImountpoint\fR
+where the tomb should be made accessible, else the tomb is mounted in
+a directory inside /media. The option \fI-o\fR can be used to pass
+mount(8) options (default: rw,noatime,nodev).
+
+.B
+.IP "list"
+List all the tombs found open, including information about the time
+they were opened and the hooks that they mounted. If the first
+argument is present, then shows only the tomb named that way or
+returns an error if its not found. If the option
+\fI--get-mountpoint\fR is used then print a simple list of currently
+open tomb mountpoint paths.
+
+.B
+.IP "index"
+Creates or updates the search indexes of all tombs currently
+open: enables use of the \fIsearch\fR command using simple word
+patterns on file names. Indexes are created using mlocate updatedb(8) and
+stored in a file inside the tomb's root. To avoid indexing
+a specific tomb simply touch a \fI.noindex\fR file in its root.
+
+.B
+.IP "search"
+Searches through all tombs currently open for filenames matching one
+or more text patterns given as arguments. Search returns a list of
+files found in all open tombs on which the \fIindex\fR command was run
+at least once.
+
+.B
+.IP "close"
+Closes a currently open tomb.  If more tombs are open, the first
+argument should be used to specify the name of the tomb to be closed,
+or \fIall\fR to close all currently open tombs. This command fails if
+the tomb is in use by running processes (to force close, see
+\fIslam\fR below).
+
+.B
+.IP "slam"
+Closes a tomb like the command \fIclose\fR does, but it doesn't fails
+even if the tomb is in use by other application processes: it looks
+for them and violently kills \-9 each of them. This command may
+provoke unsaved data loss, but assists users to face surprise
+situations.
+
+
+.B
+.IP "passwd"
+Changes the password protecting a key file specified using
+\fI-k\fR. The user will need to know the key's current password, then
+its content will be decoded and reencoded using the new one. This
+action can't be forced if the current password is not known. If the
+key file is broken (missing headers) this function also attempts its
+recovery.
+
+.B
+.IP "setkey"
+Changes the key file that locks a tomb, substituting the old one with
+a new one. Both the old and the new key files are needed for this
+operation and their passwords must be known. The new key must be
+specified using the \fI-k\fR option, the first argument should be the old
+key and the second and last argument the tomb file.
+
+.B
+.IP "resize"
+Increase the size of a tomb file to the amount specified by the
+\fI-s\fR option, which is the new size in megabytes (MiB). Full access to the tomb using
+a key (\fI-k\fR) and its password is requires. Tombs can only grow and
+can never be made smaller. This command makes use of the cryptsetup
+resize feature and the resize2fs command: its much more practical than
+creating a new tomb and moving everything into it.
+
+.B
+.IP "engrave"
+This command transforms a tomb key into an image that can be printed
+on paper and phisically stored as backup, i.e. hidden in a book. It
+Renders a QRCode of the tomb key, still protected by its password: a
+PNG image (extension \fI.qr.png\fR) will be created in the current
+directory and can be later printed (fits an A4 or Letter format).  To
+recover an engraved key one can use any QRCode reader on a smartphone:
+save it into a file and then use that file as a key (\fI-k\fR).
+
+.B
+.IP "bury"
+Hides a tomb key (\fI-k\fR) inside a \fIjpeg image\fR (first argument)
+using \fIsteganography\fR: the image will change in a way that cannot
+be noticed by human eye and hardly detected by data analysis. This
+option is useful to backup tomb keys in unsuspected places; it depends
+from the availability of \fIsteghide\fR.
+
+.B
+.IP "exhume"
+This command recovers from jpeg images the keys that were previously
+hidden into them using \fIbury\fR.  Exhume requires a key filename
+(\fI-k\fR) and a \fIjpeg image\fR file (first argument) known to be
+containing a key. If the right key password is given, the key will be
+exhumed. If the password is not known, it is very hard to verify if a
+key is buried in any image or not.
+
+.SH OPTIONS
+.B
+.B
+.IP "-k \fI<keyfile>\fR"
+When opening a tomb, this option can specify the location of the key
+file to use. Keys are created with the same name of the tomb file
+adding a '.key' suffix, but can be later renamed and transported on
+other media.  If \fI<keyfile>\fR is "-" (dash), it will read it from
+stdin.
+.B
+.IP "-n"
+Skip processing of post-hooks and bind-hooks if found inside the tomb.
+See the \fIHOOKS\fR section in this manual for more information.
+.B
+.IP "-o"
+Manually specify mount options to be used when opening a tomb instead
+of the default \fIrw,noatime,nodev\fR, i.e. to mount a tomb read-only
+(ro) to prevent any modification of its data. Can also be used to
+change the symmetric encryption algorithm for keys during \fIforge\fR
+operations (default \fIAES256\fR) or the LUKS encryption method during
+\fIlock\fR operations (default \fIaes-xts-plain64:sha256\fR).
+.B
+.IP "-f"
+Force flag, currently used to override swap checks, might be
+overriding more wimpy behaviours in future, but make sure you know
+what you are doing if you force an operation.
+.B
+.IP "-s \fI<MBytes>\fR" 
+When digging or resizing a tomb, this option must be used to specify
+the \fIsize\fR of the new file to be created. Units are megabytes (MiB).
+.B
+.IP "--kdf \fI<iterations>\fR"
+Activate the KDF feature against dictionary attacks when creating a
+key: forces a delay of \fI<iterations>\fR (integer multiplied by 10k)
+every time this key is used.
+.B
+.IP "-h"
+Display a help text and quit.
+.B
+.IP "-v"
+Display version and quit.
+.B
+.IP "-q"
+Run more quietly
+.B
+.IP "-D"
+Print more information while running, for debugging purposes
+
+.SH DEV MODE
+.B
+.IP "--no-color"
+Suppress colors in console output (needed for string parsing by
+wrappers).
+.B
+.IP "--unsafe"
+Enable using dev-mode arguments, i.e. to pass passwords from
+commandline options. This is mostly used needed for execution by
+wrappers and testing suite.
+.B
+.IP "--use-urandom"
+Use an inferior quality random source to improve the speed of key
+generation at the cost of security (neede for the testing suite).
+.B
+.IP "--sudo-pwd <string>"
+Use string as password when needed for privilege escalation via sudo.
+.B
+.IP "--tomb-pwd <string>"
+Use string as password when needed on tomb.
+.B
+.IP "--tomb-old-pwd <string>"
+Use string as old password when needed in tomb commands requiring
+multiple keys, like \fIpasswd\fR or \fIsetkey\fR.
+.B
+.IP "-U"
+Switch to this user ID when dropping privileges.
+.B
+.IP "-G"
+Switch to this group ID when dropping privileges.
+.B
+.IP "-T"
+Switch to this TTY terminal when dropping privileges.
+
+.SH HOOKS
+
+Hooks are special files that can be placed inside the tomb and trigger
+actions when it is opened and closed; there are two kinds of such
+files: \fIbind-hooks\fR and \fIpost-hooks\fR can be placed in the
+base root of the tomb.
+
+.B
+.IP "bind-hooks"
+This hook file consists of a simple two column list of files or
+directories inside the tomb to be made directly accessible inside the
+current user's home directory. Tomb will use the "mount \-o bind"
+command to bind locations inside the tomb to locations found in $HOME
+so in the first column are indicated paths relative to the tomb and in
+the second column are indicated paths relative to $HOME contents, for
+example:
+.EX
+  mail          mail
+  .gnupg        .gnupg
+  .fmrc         .fetchmailrc
+  .mozilla      .mozilla
+.EE
+
+.B
+.IP "post-hooks"
+This hook file gets executed as user by tomb right after opening it;
+it should be a regular shell script, starting with a shell bang. Tomb
+executes this hook as user (dropping root priviledges) and giving it
+two arguments: "$1" is "open" or "close" depending from the tomb
+command given, "$2" is the full path to the mountpoint where the tomb
+is open.
+
+.SH PRIVILEGE ESCALATION
+
+The tomb commandline tool needs to acquire super user rights to
+execute most of its operations: to do so it uses sudo(8), while
+pinentry(1) is adopted to collect passwords from the user. Tomb
+executes as super user only when required.
+
+To be made available on multi user systems, the superuser execution of
+the tomb script can be authorized for users without jeopardizing the
+whole system's security: just add such a line to \fI/etc/sudoers\fR:
+
+.EX
+	username ALL=NOPASSWD: /usr/local/bin/tomb
+.EE
+
+Password input is handled by the pinentry program: it can be text
+based or graphical and is usually configured with a symlink. When
+using Tomb in X11 it is better to use a graphical pinentry-gtk2 or
+pinentry-qt because it helps preventing keylogging by other X
+clients. When using it from a remote ssh connection it might be
+necessary to force use of pinentry-curses for instance by unsetting
+the DISPLAY environment var.
+
+
+.SH SWAP
+
+On execution of certain commands Tomb will complain about swap memory
+on disk when that is presend and \fIabort if your system has swap
+activated\fR. You can disable this behaviour using the
+\fI--force\fR. Before doing that, however, you may be interested in
+knowing the risks of doing so:
+.IP \(bu
+During such operations a lack of available memory could cause the swap
+to write your secret key on the disk.
+.IP \(bu
+Even while using an opened tomb, another application could occupy too
+much memory so that the swap needs to be used, this way it is possible
+that some contents of files contained into the tomb are physically
+written on your disk, not encrypted.
+.P
+
+If you don't need swap, execute \fI swapoff -a\fR. If you really need
+it, you could make an encrypted swap partition. Tomb doesn't detect if
+your swap is encrypted, and will complain anyway.
+
+.SH EXAMPLES
+
+.IP \(bu
+Create a 128MB large "secret" tomb and its keys, then open it:
+
+.EX
+	tomb dig -s 128 secret.tomb
+
+	tomb forge secret.tomb.key
+
+	tomb lock secret.tomb -k secret.tomb.key
+
+	tomb open secret.tomb -k secret.tomb.key
+.EE
+
+.IP \(bu
+Open a Tomb using the key from a remote SSH shell, without saving any
+local copy of it:
+
+.EX
+	ssh user@my.shell.net 'cat .secrets/tomb.key' | tomb open secret.tomb -k -	
+.EE
+
+.IP \(bu
+Open a Tomb on a remote server passing the unencrypted local key on stdin via SSH,
+without saving any remote copy of it:
+
+.EX
+	gpg -d .secrets/tomb.key | ssh server tomb open secret.tomb -k cleartext --unsafe
+.EE
+
+.IP \(bu
+Create a bind hook that places your GnuPG folder inside the tomb, but
+makes it reachable from the standard $HOME/.gnupg location every time
+the tomb will be opened:
+
+.EX
+	tomb open GPG.tomb -k GPG.tomb.key
+	echo ".gnupg .gnupg" > /media/GPG.tomb/bind-hooks
+	mv ~/.gnupg /media/GPG.tomb/.gnupg && mkdir ~/.gnupg
+	tomb close GPG && tomb open GPG.tomb -k GPG.tomb.key
+.EE
+
+.IP \(bu
+Script a tomb to launch the Firefox browser every time is opened,
+keeping all its profile data inside it:
+
+.EX
+	tomb open FOX.tomb -k FOX.tomb.key
+	cat <<EOF > /media/FOX.tomb/post-hooks
+#!/bin/sh
+if [ "$1" = "open" ]; then
+  firefox -no-remote -profile "$2"/firefox-pro &
+fi
+EOF
+	chmod +x     /media/FOX.tomb/post-hooks
+.EE
+
+.IP \(bu
+Script a tomb to archive Pictures using Shotwell, launching it on open:
+
+.EX
+	tomb open Pictures.tomb -k Pictures.tomb.key
+	cat <<EOF > /media/Pictures.tomb/bind-hooks
+Pictures Pictures
+EOF
+        cat <<EOF > /media/Pictures.tomb/post-hooks
+#!/bin/sh
+if [ "$1" = "open" ]; then
+  which shotwell > /dev/null
+  if [ "$?" = "0" ]; then
+    shotwell -d "$2"/Pictures/.shotwell &
+  fi
+fi
+EOF
+	chmod +x /media/Pictures.tomb/post-hooks
+.EE
+
+.SH BUGS
+Please report bugs on the Github issue tracker at
+.UR https://github.com/dyne/Tomb/issues
+.UE
+
+One can also try to get in touch with developers via the #dyne chat channel on \fIhttps://irc.dyne.org\fR.
+
+.SH AUTHORS
+
+Tomb is designed, written and maintained by Denis Roio aka Jaromil.
+
+Tomb includes code by Anathema, Boyska, Hellekin O. Wolf and GDrooid.
+
+Tomb's artwork is contributed by Jordi aka Mon Mort and Logan VanCuren.
+
+Gettext internationalization and Spanish translation is contributed by
+GDrooid, French translation by Hellekin, Russian translation by fsLeg,
+German translation by x3nu.
+
+Testing, reviews and documentation are contributed by Dreamer, Shining
+the Translucent, Mancausoft, Asbesto Molesto, Nignux, Vlax, The Grugq,
+Reiven, GDrooid, Alphazo, Brian May, TheJH, fsLeg, JoelMon and the
+Linux Action Show!
+
+Cryptsetup was developed by Christophe Saout and Clemens Fruhwirth.
+
+.SH COPYING
+
+This manual is Copyright (c) 2011-2014 by Denis Roio <\fIjaromil@dyne.org\fR>
+
+This manual includes contributions by Boyska.
+
+Permission is  granted to copy,  distribute and/or modify  this manual
+under the terms of the  GNU Free Documentation License, Version 1.1 or
+any  later   version  published  by  the   Free  Software  Foundation.
+Permission is granted  to make and distribute verbatim  copies of this
+manual page  provided the above  copyright notice and  this permission
+notice are preserved on all copies.
+
+.SH AVAILABILITY
+
+The most recent version of Tomb sourcecode and up to date
+documentation is available for download from its website on
+\fIhttp://tomb.dyne.org\fR.
+
+.SH SEE ALSO
+
+.B
+.IP cryptsetup(8)
+
+GnuPG website on http://www.gnupg.org
+
+DM-Crypt website on http://www.saout.de/misc/dm-crypt
+
+LUKS website, http://code.google.com/p/cryptsetup

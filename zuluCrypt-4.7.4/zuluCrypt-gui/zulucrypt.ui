@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>zuluCrypt</class>
+ <widget class="QMainWindow" name="zuluCrypt">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>782</width>
+    <height>419</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>zuluCrypt</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>zuluCrypt.png</normaloff>zuluCrypt.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="contextMenuPolicy">
+    <enum>Qt::ActionsContextMenu</enum>
+   </property>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>761</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::ActionsContextMenu</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <property name="midLineWidth">
+     <number>1</number>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="tabKeyNavigation">
+     <bool>false</bool>
+    </property>
+    <property name="showDropIndicator" stdset="0">
+     <bool>false</bool>
+    </property>
+    <property name="dragDropOverwriteMode">
+     <bool>false</bool>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::NoSelection</enum>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
+    <property name="verticalScrollMode">
+     <enum>QAbstractItemView::ScrollPerItem</enum>
+    </property>
+    <property name="gridStyle">
+     <enum>Qt::NoPen</enum>
+    </property>
+    <property name="rowCount">
+     <number>0</number>
+    </property>
+    <property name="columnCount">
+     <number>3</number>
+    </property>
+    <column>
+     <property name="text">
+      <string>Encrypted volume path</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Encrypted volume mount point path</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Type</string>
+     </property>
+    </column>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>782</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuOpen">
+    <property name="title">
+     <string>&amp;open</string>
+    </property>
+    <addaction name="actionFileOpen"/>
+    <addaction name="actionPartitionOpen"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuCreate">
+    <property name="title">
+     <string>&amp;create</string>
+    </property>
+    <addaction name="actionFileCreate"/>
+    <addaction name="actionPartitionCreate"/>
+    <addaction name="actionCreatekeyFile"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>&amp;help</string>
+    </property>
+    <addaction name="actionInfo"/>
+    <addaction name="actionPermission_problems"/>
+    <addaction name="actionLuks_header_backup"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuConfigure">
+    <property name="title">
+     <string>volumes</string>
+    </property>
+    <addaction name="actionAddKey"/>
+    <addaction name="actionDeleteKey"/>
+    <addaction name="separator"/>
+    <addaction name="actionBackup_header"/>
+    <addaction name="actionRestore_header"/>
+   </widget>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>o&amp;ptions</string>
+    </property>
+    <addaction name="actionTray_icon"/>
+    <addaction name="actionFonts"/>
+    <addaction name="actionManage_names"/>
+    <addaction name="actionManage_volumes_in_internal_wallet"/>
+    <addaction name="actionManage_volumes_in_kde_wallet"/>
+    <addaction name="actionManage_volumes_in_gnome_wallet"/>
+    <addaction name="actionChange_internal_wallet_password"/>
+    <addaction name="actionManage_system_partitions"/>
+    <addaction name="actionManage_non_system_partitions"/>
+   </widget>
+   <widget class="QMenu" name="menuFavorites">
+    <property name="title">
+     <string>&amp;favorites</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_zc">
+    <property name="title">
+     <string>&amp;zC</string>
+    </property>
+    <addaction name="actionMinimize_to_tray"/>
+    <addaction name="separator"/>
+    <addaction name="action_update_volume_list"/>
+    <addaction name="actionClose_all_opened_volumes"/>
+    <addaction name="separator"/>
+    <addaction name="actionErase_data_on_device"/>
+    <addaction name="separator"/>
+    <addaction name="actionEncrypt_file"/>
+    <addaction name="actionDecrypt_file"/>
+    <addaction name="separator"/>
+    <addaction name="action_close"/>
+   </widget>
+   <addaction name="menu_zc"/>
+   <addaction name="menuOpen"/>
+   <addaction name="menuCreate"/>
+   <addaction name="menuConfigure"/>
+   <addaction name="menuFavorites"/>
+   <addaction name="menuOptions"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionFileOpen">
+   <property name="text">
+    <string>encrypted container in a file</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionPartitionOpen">
+   <property name="text">
+    <string>encrypted container in a partition</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionFileCreate">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>encrypted container in a file</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionPartitionCreate">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>encrypted container in a partition</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>about</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionAddKey">
+   <property name="text">
+    <string>add a key to a volume</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+U</string>
+   </property>
+  </action>
+  <action name="actionDeleteKey">
+   <property name="text">
+    <string>delete a key from a volume</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="actionInfo">
+   <property name="text">
+    <string>crypto info</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionCreatekeyFile">
+   <property name="text">
+    <string>keyfile</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionTray_icon">
+   <property name="text">
+    <string>tray icon</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+K</string>
+   </property>
+  </action>
+  <action name="actionFonts">
+   <property name="text">
+    <string>select font</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionFavorite_volumes">
+   <property name="text">
+    <string>favorite volumes</string>
+   </property>
+  </action>
+  <action name="actionManage_favorites">
+   <property name="text">
+    <string>manage favorites</string>
+   </property>
+  </action>
+  <action name="actionSelect_random_number_generator">
+   <property name="text">
+    <string>select random number generator</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionClose_application">
+   <property name="text">
+    <string>close application</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="action_update_volume_list">
+   <property name="text">
+    <string>update volume list</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionMinimize_to_tray">
+   <property name="text">
+    <string>minimize to tray</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Y</string>
+   </property>
+  </action>
+  <action name="action_close">
+   <property name="text">
+    <string>quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionClose_all_opened_volumes">
+   <property name="text">
+    <string>close all opened volumes</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+G</string>
+   </property>
+  </action>
+  <action name="actionManage_names">
+   <property name="text">
+    <string>manage favorites</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionErase_data_on_device">
+   <property name="text">
+    <string>erase data in a device</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionBackup_header">
+   <property name="text">
+    <string>backup header</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionRestore_header">
+   <property name="text">
+    <string>restore header</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionPermission_problems">
+   <property name="text">
+    <string>permissions</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="actionEncrypt_file">
+   <property name="text">
+    <string>encrypt a file</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionDecrypt_file">
+   <property name="text">
+    <string>decrypt a file</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
+   </property>
+  </action>
+  <action name="actionLuks_header_backup">
+   <property name="text">
+    <string>luks header backup</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+J</string>
+   </property>
+  </action>
+  <action name="actionManage_system_partitions">
+   <property name="text">
+    <string>manage system volumes</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionManage_volumes_in_internal_wallet">
+   <property name="text">
+    <string>manage volumes in internal wallet</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionUse_kde_default_wallet">
+   <property name="text">
+    <string>configure wallets</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionManage_non_system_partitions">
+   <property name="text">
+    <string>manage non system volumes</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionManage_volumes_in_kde_wallet">
+   <property name="text">
+    <string>manage volumes in kde wallet</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+V</string>
+   </property>
+  </action>
+  <action name="actionManage_volumes_in_gnome_wallet">
+   <property name="text">
+    <string>manage volumes in gnome wallet</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+V</string>
+   </property>
+  </action>
+  <action name="actionChange_internal_wallet_password">
+   <property name="text">
+    <string>change internal wallet password</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionTcrypt_backup_header">
+   <property name="text">
+    <string>tcrypt backup header</string>
+   </property>
+  </action>
+  <action name="actionTcrypt_restore_header">
+   <property name="text">
+    <string>tcrypt restore header</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,267 @@
+# Install script for directory: /home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli
+
+# Set the install prefix
+IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
+  SET(CMAKE_INSTALL_PREFIX "/usr/local")
+ENDIF(NOT DEFINED CMAKE_INSTALL_PREFIX)
+STRING(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
+
+# Set the install configuration name.
+IF(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
+  IF(BUILD_TYPE)
+    STRING(REGEX REPLACE "^[^A-Za-z0-9_]+" ""
+           CMAKE_INSTALL_CONFIG_NAME "${BUILD_TYPE}")
+  ELSE(BUILD_TYPE)
+    SET(CMAKE_INSTALL_CONFIG_NAME "")
+  ENDIF(BUILD_TYPE)
+  MESSAGE(STATUS "Install configuration: \"${CMAKE_INSTALL_CONFIG_NAME}\"")
+ENDIF(NOT DEFINED CMAKE_INSTALL_CONFIG_NAME)
+
+# Set the component getting installed.
+IF(NOT CMAKE_INSTALL_COMPONENT)
+  IF(COMPONENT)
+    MESSAGE(STATUS "Install component: \"${COMPONENT}\"")
+    SET(CMAKE_INSTALL_COMPONENT "${COMPONENT}")
+  ELSE(COMPONENT)
+    SET(CMAKE_INSTALL_COMPONENT)
+  ENDIF(COMPONENT)
+ENDIF(NOT CMAKE_INSTALL_COMPONENT)
+
+# Install shared libraries without execute permission?
+IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  SET(CMAKE_INSTALL_SO_NO_EXE "1")
+ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  IF(EXISTS "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/keyring" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/keyring")
+    FILE(RPATH_CHECK
+         FILE "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/keyring"
+         RPATH "/usr/local/lib64")
+  ENDIF()
+  list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+   "/usr/local/lib64/zuluCrypt/keyring")
+  IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+  IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+FILE(INSTALL DESTINATION "/usr/local/lib64/zuluCrypt" TYPE EXECUTABLE FILES "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/keyring")
+  IF(EXISTS "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/keyring" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/keyring")
+    FILE(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/keyring"
+         OLD_RPATH "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli:"
+         NEW_RPATH "/usr/local/lib64")
+    IF(CMAKE_INSTALL_DO_STRIP)
+      EXECUTE_PROCESS(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/keyring")
+    ENDIF(CMAKE_INSTALL_DO_STRIP)
+  ENDIF()
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  IF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluCrypt-cli" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluCrypt-cli")
+    FILE(RPATH_CHECK
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluCrypt-cli"
+         RPATH "/usr/local/lib64")
+  ENDIF()
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE SETUID FILES "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/zuluCrypt-cli")
+  IF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluCrypt-cli" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluCrypt-cli")
+    FILE(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluCrypt-cli"
+         OLD_RPATH "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli:"
+         NEW_RPATH "/usr/local/lib64")
+    IF(CMAKE_INSTALL_DO_STRIP)
+      EXECUTE_PROCESS(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluCrypt-cli")
+    ENDIF(CMAKE_INSTALL_DO_STRIP)
+  ENDIF()
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  IF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluMount-cli" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluMount-cli")
+    FILE(RPATH_CHECK
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluMount-cli"
+         RPATH "/usr/local/lib64")
+  ENDIF()
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE SETUID FILES "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/zuluMount-cli")
+  IF(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluMount-cli" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluMount-cli")
+    FILE(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluMount-cli"
+         OLD_RPATH "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli:"
+         NEW_RPATH "/usr/local/lib64")
+    IF(CMAKE_INSTALL_DO_STRIP)
+      EXECUTE_PROCESS(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/zuluMount-cli")
+    ENDIF(CMAKE_INSTALL_DO_STRIP)
+  ENDIF()
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  IF(EXISTS "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/zuluCrypt-testKey" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/zuluCrypt-testKey")
+    FILE(RPATH_CHECK
+         FILE "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/zuluCrypt-testKey"
+         RPATH "/usr/local/lib64")
+  ENDIF()
+  list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+   "/usr/local/lib64/zuluCrypt/zuluCrypt-testKey")
+  IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+  IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+FILE(INSTALL DESTINATION "/usr/local/lib64/zuluCrypt" TYPE EXECUTABLE FILES "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/zuluCrypt-testKey")
+  IF(EXISTS "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/zuluCrypt-testKey" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/zuluCrypt-testKey")
+    FILE(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/zuluCrypt-testKey"
+         OLD_RPATH "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli:"
+         NEW_RPATH "/usr/local/lib64")
+    IF(CMAKE_INSTALL_DO_STRIP)
+      EXECUTE_PROCESS(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}/usr/local/lib64/zuluCrypt/zuluCrypt-testKey")
+    ENDIF(CMAKE_INSTALL_DO_STRIP)
+  ENDIF()
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  FOREACH(file
+      "$ENV{DESTDIR}/usr/local/lib64/libzuluCryptPluginManager.so.1.0.0"
+      "$ENV{DESTDIR}/usr/local/lib64/libzuluCryptPluginManager.so"
+      )
+    IF(EXISTS "${file}" AND
+       NOT IS_SYMLINK "${file}")
+      FILE(RPATH_CHECK
+           FILE "${file}"
+           RPATH "")
+    ENDIF()
+  ENDFOREACH()
+  list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+   "/usr/local/lib64/libzuluCryptPluginManager.so.1.0.0;/usr/local/lib64/libzuluCryptPluginManager.so")
+  IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+  IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+FILE(INSTALL DESTINATION "/usr/local/lib64" TYPE SHARED_LIBRARY FILES
+    "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/libzuluCryptPluginManager.so.1.0.0"
+    "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/libzuluCryptPluginManager.so"
+    )
+  FOREACH(file
+      "$ENV{DESTDIR}/usr/local/lib64/libzuluCryptPluginManager.so.1.0.0"
+      "$ENV{DESTDIR}/usr/local/lib64/libzuluCryptPluginManager.so"
+      )
+    IF(EXISTS "${file}" AND
+       NOT IS_SYMLINK "${file}")
+      IF(CMAKE_INSTALL_DO_STRIP)
+        EXECUTE_PROCESS(COMMAND "/usr/bin/strip" "${file}")
+      ENDIF(CMAKE_INSTALL_DO_STRIP)
+    ENDIF()
+  ENDFOREACH()
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  FOREACH(file
+      "$ENV{DESTDIR}/usr/local/lib64/libzuluCrypt.so.1.2.0"
+      "$ENV{DESTDIR}/usr/local/lib64/libzuluCrypt.so"
+      )
+    IF(EXISTS "${file}" AND
+       NOT IS_SYMLINK "${file}")
+      FILE(RPATH_CHECK
+           FILE "${file}"
+           RPATH "")
+    ENDIF()
+  ENDFOREACH()
+  list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+   "/usr/local/lib64/libzuluCrypt.so.1.2.0;/usr/local/lib64/libzuluCrypt.so")
+  IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+  IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+FILE(INSTALL DESTINATION "/usr/local/lib64" TYPE SHARED_LIBRARY FILES
+    "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/libzuluCrypt.so.1.2.0"
+    "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/libzuluCrypt.so"
+    )
+  FOREACH(file
+      "$ENV{DESTDIR}/usr/local/lib64/libzuluCrypt.so.1.2.0"
+      "$ENV{DESTDIR}/usr/local/lib64/libzuluCrypt.so"
+      )
+    IF(EXISTS "${file}" AND
+       NOT IS_SYMLINK "${file}")
+      IF(CMAKE_INSTALL_DO_STRIP)
+        EXECUTE_PROCESS(COMMAND "/usr/bin/strip" "${file}")
+      ENDIF(CMAKE_INSTALL_DO_STRIP)
+    ENDIF()
+  ENDFOREACH()
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  FOREACH(file
+      "$ENV{DESTDIR}/usr/local/lib64/libzuluCrypt-exe.so.1.2.0"
+      "$ENV{DESTDIR}/usr/local/lib64/libzuluCrypt-exe.so"
+      )
+    IF(EXISTS "${file}" AND
+       NOT IS_SYMLINK "${file}")
+      FILE(RPATH_CHECK
+           FILE "${file}"
+           RPATH "")
+    ENDIF()
+  ENDFOREACH()
+  list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+   "/usr/local/lib64/libzuluCrypt-exe.so.1.2.0;/usr/local/lib64/libzuluCrypt-exe.so")
+  IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+  IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+FILE(INSTALL DESTINATION "/usr/local/lib64" TYPE SHARED_LIBRARY FILES
+    "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/libzuluCrypt-exe.so.1.2.0"
+    "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/libzuluCrypt-exe.so"
+    )
+  FOREACH(file
+      "$ENV{DESTDIR}/usr/local/lib64/libzuluCrypt-exe.so.1.2.0"
+      "$ENV{DESTDIR}/usr/local/lib64/libzuluCrypt-exe.so"
+      )
+    IF(EXISTS "${file}" AND
+       NOT IS_SYMLINK "${file}")
+      FILE(RPATH_REMOVE
+           FILE "${file}")
+      IF(CMAKE_INSTALL_DO_STRIP)
+        EXECUTE_PROCESS(COMMAND "/usr/bin/strip" "${file}")
+      ENDIF(CMAKE_INSTALL_DO_STRIP)
+    ENDIF()
+  ENDFOREACH()
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/zuluCrypt" TYPE FILE FILES "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/lib/libzuluCrypt.h")
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/zuluCrypt" TYPE FILE FILES "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/bin/libzuluCrypt-exe.h")
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  FILE(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include/zuluCrypt" TYPE FILE FILES "/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-cli/pluginManager/libzuluCryptPluginManager.h")
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+
+IF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
+   "/usr/local/lib64/pkgconfig/libzuluCrypt.pc")
+  IF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  ENDIF (CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
+  IF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+    message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
+  ENDIF (CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
+FILE(INSTALL DESTINATION "/usr/local/lib64/pkgconfig" TYPE FILE PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ FILES "/home/kod/soft/zuluCrypt-4.7.4/libzuluCrypt.pc")
+ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+

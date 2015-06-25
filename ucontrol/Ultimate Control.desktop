@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.1
+Type=Application
+Terminal=false
+Exec=ucontrol
+Name=Ultimate Control
+Icon=/usr/lib/ucontrol/icon.png

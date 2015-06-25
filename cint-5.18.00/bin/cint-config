@@ -1,0 +1,45 @@
+
+printhelp() {
+cat <<_EOF
+
+Usage: cint-config [options]
+
+  --bindir         print the directory of cint executables
+  --incdir         print the directory of cint header files
+  --cflags         print the necessary flags for the compiler
+  --libs           print the necessary libs for linking 
+  --libdir         print the directory of cint libraries
+  --datadir        print the location of cint data files
+  --arch           print architecture
+  -u|--unix        print unix-like paths (makes sense only on win)
+                   this arg has effect only on the following args
+  -v|--version     print cint version
+  -h|--help        print this help
+
+_EOF
+}
+
+if [ $# -eq 0 ]; then
+   printhelp
+   exit 1
+fi
+
+pathconvert=echo
+
+while [ $# -gt 0 ] ; do
+  case $1 in
+    --unix|-u) pathconvert="echo " ;;
+    --bindir)  $pathconvert "/usr/local/bin" ;;
+    --incdir)  $pathconvert "/usr/local/include/cint" ;;
+    --cflags)  $pathconvert "-I/usr/local/include/cint " ;;
+    --libs)    $pathconvert "-L/usr/local/lib -lCint " ;;
+    --libdir)  $pathconvert "/usr/local/lib" ;;
+    --datadir) $pathconvert "/usr/local/share/cint" ;;
+    --version|-v) echo "5.18.00" ;;
+    --arch)   echo "linuxx8664gcc" ;;
+    -h|--help) printhelp;;
+    *)        echo "Unknown option: $1"; exit 1;;
+  esac
+  shift
+done
+

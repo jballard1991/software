@@ -1,0 +1,2 @@
+/usr/bin/ar cr libsharedObject.a  CMakeFiles/sharedObject.dir/__/moc_dialogmsg.cxx.o CMakeFiles/sharedObject.dir/__/dialogmsg.cpp.o CMakeFiles/sharedObject.dir/__/userfont.cpp.o CMakeFiles/sharedObject.dir/__/tablewidget.cpp.o CMakeFiles/sharedObject.dir/__/utility.cpp.o
+/usr/bin/ranlib libsharedObject.a

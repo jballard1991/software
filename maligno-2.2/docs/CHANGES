@@ -1,0 +1,14 @@
+MALIGNO v2.1 -> v2.2
+=====================
+
+1. Adjustments to get caught mode have been introduced. This mode sends now random data with random length as payload.
+   Maligno server will not generate metasploit payloads when get caught mode is enabled. This means that no metasploit payload is sent to Maligno client in get caught mode.
+2. Clients will not inject  and execute the payload when get caught mode is enabled.
+3. Adjustments to Clientgen for implementing changes related to get caught mode.
+4. Clientgen now generates one single client file when get caught mode is enabled.
+5. Print warning function added to output routines.
+6. Threads are now started as daemon in order to finish properly when the server is stopped.
+7. Fixed a bug that prevented payload IDs from being alphanumerical strings.
+8. Payload spawn time increased to 30 seconds in perpetual mode.
+9. Minor bug fixes.
+10. New adversary replication profile "oldrea.xml".

@@ -1,0 +1,1 @@
+  cint/src/dict/Apiif.o cint/src/dict/Apiif.d: $(wildcard cint/src/dict/Apiif.h cint/inc/G__ci.h cint/inc/G__ci_fproto.h cint/inc/FastAllocString.h cint/inc/Api.h cint/inc/Property.h cint/inc/Class.h cint/inc/BaseCls.h cint/inc/Type.h cint/inc/Method.h cint/inc/MethodAr.h cint/inc/DataMbr.h cint/inc/CallFunc.h cint/inc/Typedf.h cint/inc/Token.h)

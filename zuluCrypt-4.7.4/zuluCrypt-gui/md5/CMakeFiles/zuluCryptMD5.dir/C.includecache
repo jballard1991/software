@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-gui/md5/md5.c
+string.h
+-
+md5.h
+/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-gui/md5/md5.h
+
+/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-gui/md5/md5.h
+

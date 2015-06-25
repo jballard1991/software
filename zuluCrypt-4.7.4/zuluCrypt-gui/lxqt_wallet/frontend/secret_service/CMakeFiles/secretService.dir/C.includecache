@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kod/soft/zuluCrypt-4.7.4/zuluCrypt-gui/lxqt_wallet/frontend/secret_service.c
+libsecret-1/libsecret/secret.h
+-
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+

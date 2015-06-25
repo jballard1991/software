@@ -1,0 +1,2 @@
+/usr/bin/ar cr liblxqtwallet.a  CMakeFiles/lxqtwallet.dir/changepassworddialog.cpp.o CMakeFiles/lxqtwallet.dir/password_dialog.cpp.o CMakeFiles/lxqtwallet.dir/lxqt_internal_wallet.cpp.o CMakeFiles/lxqtwallet.dir/lxqt_wallet.cpp.o CMakeFiles/lxqtwallet.dir/lxqt_secret_service.cpp.o CMakeFiles/lxqtwallet.dir/moc_changepassworddialog.cxx.o CMakeFiles/lxqtwallet.dir/moc_lxqt_internal_wallet.cxx.o CMakeFiles/lxqtwallet.dir/moc_password_dialog.cxx.o CMakeFiles/lxqtwallet.dir/moc_lxqt_secret_service.cxx.o CMakeFiles/lxqtwallet.dir/moc_task.cxx.o
+/usr/bin/ranlib liblxqtwallet.a

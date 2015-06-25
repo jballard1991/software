@@ -1,0 +1,30 @@
+Doc-Version: 1
+
+
+UBUNTU README addon
+
+This file adds some information to the general README if you are using UBUNTU.
+
+
+
+Why this README for UBUNTU?
+
+   The Ubuntu developers decided to compile cpufreq drivers into the
+   Kernel for some reasons. Different to a driver that is compiled
+   as a module, the compiled-in ones can not be replaced.
+
+   You need another Kernel. Either self-made or provided by some nice guys.
+
+
+   If you want to compile your own Kernel you should take a look into the Ubuntu Forums.
+   There are a lot of good howto's. Many of them are well written and
+   understandable for beginners.
+
+   If you want a replacement Kernel as a Deb-Package for easy installing you can
+   use those from our PPA (Personal Package Archive). Further information about
+   that can be found in our Forum.
+
+   Please say "thank you" to the guy who provides that PPA, he really deserve it.
+
+
+

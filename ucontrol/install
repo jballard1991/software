@@ -1,0 +1,8 @@
+#!/bin/sh
+echo Installing...
+mkdir /usr/lib/ucontrol
+cp -f -r lib/ucontrol.jar /usr/lib/ucontrol/ucontrol.jar
+cp -f -r lib/icon.png /usr/lib/ucontrol/icon.png
+cp -f -r bin/ucontrol /usr/bin/ucontrol
+chmod 744 /usr/lib/ucontrol/*
+echo OK!
